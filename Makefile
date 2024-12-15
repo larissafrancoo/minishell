@@ -8,14 +8,14 @@ RM		=	rm -f
 
 LIBRARY	=	./libft/
 
-SRCS	=	input_checker_functions.c\
-			input_tokenizator.c\
-			input_start_function.c\
-			env_function.c\
-			env_utils.c\
-			split_function.c\
-			split_utils.c\
-			main.c\
+SRCS	=	./src/input_checker_functions.c\
+			./src/input_tokenizator.c\
+			./src/input_start_function.c\
+			./src/env_function.c\
+			./src/env_utils.c\
+			./src/split_function.c\
+			./src/split_utils.c\
+			./src/main.c\
 
 all: $(NAME)
 
