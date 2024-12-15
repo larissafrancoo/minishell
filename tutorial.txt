@@ -2,14 +2,14 @@ TUTORIAL DE USO:
 Como usar a sua branch:
 
 1. Para fazer checkout:
-   > git checkout emorshhe
+   > git checkout SUABRANCH
 
 2. Para commitar:
    > git add .
    > git commit -m "Descrição do seu commit"
 
 3. Para fazer o push na sua branch:
-   > git push origin branch-amigo
+   > git push origin SUABRANCH
 
 --------------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ Como usar a sua branch:
 	> git pull origin main
 
 	c. Volte para sua branch:
-	> git checkout emorshhe
+	> git checkout SUABRANCH
 
 	d. Faça o merge das mudanças da branch principal na sua
 	branch (caso haja algum conflito, resolva-o):
@@ -36,7 +36,7 @@ Como usar a sua branch:
 	> git checkout main
 
 	b. Faça o merge da sua branch na `main`:
-	> git merge emorshhe
+	> git merge SUABRANCH
 
 	Por fim, faça o push das alterações para a main:
 	> git push origin main
