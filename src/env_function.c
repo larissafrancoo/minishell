@@ -14,7 +14,7 @@ static int	first_equal(char *str)
 	return (-1);
 }
 
-t_env	*new_env_lst(char **ev, t_env *env_list)
+t_env	*my_env_lst(char **ev, t_env *env_list)
 {
 	int		i;
 	int		equal_index;
@@ -49,7 +49,7 @@ int main(int ac, char **av, char **ev)
 	t_env *env_list;
     env_list = NULL;
 
-    env_list = new_env_lst(ev, env_list);
+    env_list = my_env_lst(ev, env_list);
 
     tmp = env_list;
     while (ev[++i])

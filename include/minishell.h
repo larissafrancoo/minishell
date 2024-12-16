@@ -7,6 +7,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <stddef.h>
+# include <linux/limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -47,7 +48,7 @@ size_t  word_count(char *str);
 int all_quotes_has_end(char *str);
 
 //input_start_function
-void    start_function(char **ev);
+void    start_function(t_env *env_list);
 
 //input_checker_functions
 int input_check(char *str);
@@ -57,12 +58,18 @@ int do_tokens(char *rd_input);
 
 //env_functions
 static int	first_equal(char *str);
-t_env	*new_env_lst(char **ev, t_env *env_list);
+t_env	*my_env_lst(char **ev, t_env *env_list);
 
 //env_utils
 t_env	*my_lstlast(t_env *lst);
 void	my_lstadd_back(t_env **lst, t_env *new);
 t_env	*my_lstnew(char *first_str, char *second_str);
 void	free_env(t_env *list);
+
+//env
+int	print_env(t_env *env_list);
+
+//pwd
+int	ft_pwd(void);
 
 #endif

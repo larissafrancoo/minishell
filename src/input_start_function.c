@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void    start_function(char **ev)
+void    start_function(t_env *env_list)
 {
     char *rd_input;
     int ret_dtok;
@@ -9,10 +9,29 @@ void    start_function(char **ev)
     {
 		rd_input = readline("\nnickname@123:~/um/caminho/qualquer$ ");
 		add_history(rd_input);
-		if (strcmp(rd_input, "sair") == 0)
+
+		if (strcmp(rd_input, "exit") == 0)
 		{
 			free(rd_input);
 			break ;
+		}
+		else if (strcmp(rd_input, "env") == 0)
+		{
+			ret_dtok = print_env(env_list);
+			if (!ret_dtok)
+			{
+			    free_env(env_list);
+				printf("ERRO NA ENV\n");
+			}
+		}
+		else if (strcmp(rd_input,"pwd") == 0)
+		{
+			ret_dtok = ft_pwd();
+			if (!ret_dtok)
+			{
+			    free_env(env_list);
+				printf("ERRO NA PWD\n");
+			}
 		}
         ret_dtok = do_tokens(rd_input);
 		if (ret_dtok)

@@ -16,6 +16,8 @@ SRCS	=	./src/input_checker_functions.c\
 			./src/split_function.c\
 			./src/split_utils.c\
 			./src/main.c\
+			./src/doing_builtins/env.c\
+			./src/doing_builtins/pwd.c\
 
 all: $(NAME)
 
