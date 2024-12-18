@@ -41,7 +41,7 @@ void	my_lstadd_front(t_env **lst, t_env *new)
 }
 */
 
-t_env	*my_lstnew(char *first_str, char *second_str)
+t_env	*env_lstnew(char *first_str, char *second_str)
 {
 	t_env	*list;
 

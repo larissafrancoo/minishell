@@ -12,6 +12,14 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
+typedef enum e_token_type {
+	CMD = 2,
+	ARG = 3,
+	REDIR = 4,
+	PIPE = 5,
+	REDIR_ARG = 6
+}	t_token_type;
+
 typedef struct s_env
 {
 	char	*key;
@@ -21,10 +29,8 @@ typedef struct s_env
 
 typedef struct s_token
 {
-	char	*token;
-	char	*first_cmd;
-	char	cmd;
-	char	*path;
+	char	*str;
+	int	type;
 	struct s_token	*next;
 }			t_token;
 
@@ -53,7 +59,14 @@ void    start_function(t_env *env_list);
 //input_checker_functions
 int input_check(char *str);
 
-//input_tokenizator
+//input_tokenizato
+t_token	*token_lstlast(t_token *lst);
+void	token_lstadd_back(t_token **lst, t_token *new);
+void	free_tokens(t_token *list);
+int check_type_input(char *str, int prev);
+void add_type_in_the_list(t_token **lst);
+t_token	*token_lstnew(char *first_str);
+t_token *tokenizator(char *rd_input, t_token *token_list);
 int do_tokens(char *rd_input);
 
 //env_functions
@@ -63,7 +76,7 @@ t_env	*my_env_lst(char **ev, t_env *env_list);
 //env_utils
 t_env	*my_lstlast(t_env *lst);
 void	my_lstadd_back(t_env **lst, t_env *new);
-t_env	*my_lstnew(char *first_str, char *second_str);
+t_env	*env_lstnew(char *first_str, char *second_str);
 void	free_env(t_env *list);
 
 //env

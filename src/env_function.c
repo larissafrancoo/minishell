@@ -35,7 +35,7 @@ t_env	*my_env_lst(char **ev, t_env *env_list)
 			free (key);
 			return (NULL);
 		}
-		new = my_lstnew(key, str);
+		new = env_lstnew(key, str);
 		//fazer tratamento caso dê errado
 		my_lstadd_back(&env_list, new);
 	}
