@@ -30,7 +30,7 @@ typedef struct s_env
 typedef struct s_token
 {
 	char	*str;
-	int	type;
+	t_token_type	type;
 	struct s_token	*next;
 }			t_token;
 
@@ -46,6 +46,7 @@ enum
 char	*word_between_spaces(char *str, int idx);
 void	split_free(char **str, size_t o);
 char    **mod_split_input(char *str);
+int		has_spaces(char *str);
 
 //split_utils
 int is_space(int c);

@@ -40,15 +40,15 @@ void	free_tokens(t_token *list)
 
 int check_type_input(char *str, int prev)
 {
-    if (strcmp(str, "|"))
+    if (strcmp(str, "|") == 0)
         return (PIPE);
-    else if (strcmp(str, ">"))
+    else if (strcmp(str, ">") == 0)
         return (REDIR);
-    else if (strcmp(str, ">>"))
+    else if (strcmp(str, ">>") == 0)
         return (REDIR);
-    else if (strcmp(str, "<"))
+    else if (strcmp(str, "<") == 0)
         return (REDIR);
-    else if (strcmp(str, "<<"))
+    else if (strcmp(str, "<<") == 0)
         return (REDIR);
     else
     {
@@ -57,7 +57,7 @@ int check_type_input(char *str, int prev)
             return (CMD);
         else if (prev == REDIR)
             return (REDIR_ARG);
-        else if (prev == CMD)
+        else if ((prev == CMD) || (prev == ARG))
             return (ARG);
         else
         {

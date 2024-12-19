@@ -19,6 +19,7 @@ char	*word_between_spaces(char *str, int idx)
         ret[iret] = str[idx++];
     printf("idx iret: %d - idx str: %d\n", iret, idx);
     ret[iret] = '\0';
+    printf("achei uma palavra: %s\n", ret);
     return (ret);
 }
 
@@ -35,6 +36,19 @@ void	split_free(char **str, size_t o)
 	free(str);
 }
 
+int has_spaces(char *str)
+{
+    if (!str)
+        return (0);
+    while(*str)
+    {
+        if (*str != ' ')
+            return (1);
+        str++;
+    }
+    return (0);
+}
+
 char    **mod_split_input(char *str)
 {
     int     istr;
@@ -43,7 +57,7 @@ char    **mod_split_input(char *str)
 
     istr = 0;
     iret = 0;
-    if (!str)
+    if (!str || (!has_spaces(str)))
         return (NULL);
     ret = (char **) ft_calloc(word_count(str) + 1, sizeof(char *));
     if (!ret)

@@ -25,6 +25,25 @@ antes de espaço ou final da string, ou -1 se não encontrar
 nenhum caractere relevante.
 */
 
+int is_premium(char *str, int i)
+{
+    if (str[i] == '|')
+        return (i);
+    else if (str[i] == '>')
+    {
+        if (str[i + 1] && (str[i + 1] == '>'))
+            return (++i);
+        return (i);
+    }
+    else if (str[i] == '<')
+    {
+        if (str[i + 1] && (str[i + 1] == '<'))
+            return (++i);
+        return (i);
+    }
+    return (-1);
+}
+
 int find_next_char(char *str, int idx)
 {
     int flag;
@@ -32,14 +51,19 @@ int find_next_char(char *str, int idx)
     flag = 0;
     while (str[idx])
     {
+//        printf("idx: %i    AAAAAAAAAAAAAAAAAH\n", idx);
 		if ((str[idx] == 34 || str[idx] == 39) && flag == 0)
 			flag = str[idx];
 		else if (str[idx] == flag)
 			flag = 0;
+        else if ((is_premium(str, idx) != -1) && flag == 0)
+            return (is_premium(str, idx));
 		if (is_space(str[idx]) && flag == 0)
             return (idx - 1);
 		if ((!str[idx + 1]) && flag == 0)
 			return (idx);
+        else if ((is_premium(str, idx + 1) != -1) && flag == 0)
+            return (idx);
         idx++;
     }
     return (-1);
