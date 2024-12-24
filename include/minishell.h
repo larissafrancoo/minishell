@@ -80,6 +80,16 @@ void	my_lstadd_back(t_env **lst, t_env *new);
 t_env	*env_lstnew(char *first_str, char *second_str);
 void	free_env(t_env *list);
 
+//expansor
+char *expander(char *str, t_env *env_list/*, t_token *token_node*/);
+
+//expansor_utils
+int find_next_char_for_expand(char *str, int idx);
+char	*get_word_for_expand(char *str, int idx);
+char *expand_strjoin(char *s1, char *s2);
+char *find_the_key(char *str, t_env *env_lst);
+char	*substr_for_expand(char const *s, unsigned int start, size_t len);
+
 //env
 int	print_env(t_env *env_list);
 

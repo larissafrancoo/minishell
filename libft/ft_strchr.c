@@ -36,10 +36,11 @@ char	*ft_strchr(const char *s, int c)
 
 int main(void)
 {
-	char *s = "\0";
-	int c = 'l';
+	char *s = "trdwytefd $sgddvchsgvc ggcjfc";
+	int c = '$';
 
 	printf("Jack Sparrow: %s - Endereço: %p \n", ft_strchr(s, c), ft_strchr(s, c));
 	printf("Original    : %s - Endereço: %p \n", strchr(s, c), strchr(s, c));
 	return (0);
-}*/
+}
+*/

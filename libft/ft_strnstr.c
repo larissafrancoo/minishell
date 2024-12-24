@@ -73,4 +73,5 @@ int main(void)
 	char *ori = strnstr(one, two, len);
 	printf("Original    : %s \n", ori);
 	return (0);
-}*/
+}
+*/

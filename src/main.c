@@ -1,5 +1,5 @@
 #include "../include/minishell.h"
-
+/*
 int main(int ac, char **av, char **ev)
 {
     t_env *env;
@@ -9,3 +9,4 @@ int main(int ac, char **av, char **ev)
     free_env(env);
     return (0);
 }
+*/

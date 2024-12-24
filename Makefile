@@ -18,6 +18,8 @@ SRCS	=	./src/input_checker_functions.c\
 			./src/main.c\
 			./src/doing_builtins/env.c\
 			./src/doing_builtins/pwd.c\
+			./src/expansor.c\
+			./src/expansor_utils.c\
 
 all: $(NAME)
 
