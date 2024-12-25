@@ -54,21 +54,24 @@ int find_next_char(char *str, int idx);
 size_t  word_count(char *str);
 int all_quotes_has_end(char *str);
 
-//input_start_function
-void    start_function(t_env *env_list);
+//readline_function
+void    readline_function(t_env *env_list, t_token *tokens);
+
+//parser_p1
+int parser_home(char *input, t_token *token_lst, t_env *env_lst);
 
 //input_checker_functions
 int input_check(char *str);
 
-//input_tokenizato
+//input_tokenizator
 t_token	*token_lstlast(t_token *lst);
 void	token_lstadd_back(t_token **lst, t_token *new);
 void	free_tokens(t_token *list);
 int check_type_input(char *str, int prev);
 void add_type_in_the_list(t_token **lst);
 t_token	*token_lstnew(char *first_str);
-t_token *tokenizator(char *rd_input, t_token *token_list);
-int do_tokens(char *rd_input);
+t_token *tokenizator(char *rd_input, t_token *token_list, t_env *env_lst);
+int do_tokens(char *input, t_token *tokens, t_env *env_lst);
 
 //env_functions
 static int	first_equal(char *str);
@@ -81,14 +84,18 @@ t_env	*env_lstnew(char *first_str, char *second_str);
 void	free_env(t_env *list);
 
 //expansor
-char *expander(char *str, t_env *env_list/*, t_token *token_node*/);
+char *expander_the_input(char *input, t_env *env_lst);
+int expansor(t_token *token_lst, t_env *env_lst);
 
 //expansor_utils
-int find_next_char_for_expand(char *str, int idx);
-char	*get_word_for_expand(char *str, int idx);
-char *expand_strjoin(char *s1, char *s2);
-char *find_the_key(char *str, t_env *env_lst);
-char	*substr_for_expand(char const *s, unsigned int start, size_t len);
+char *replace_the_part(char *str, t_env *env_lst);
+char *get_first_part(char *str, int idx);
+char *get_the_key(char *str, int idx, t_env *env_lst);
+char *get_final_part(char *str, int idx);
+char *join_the_parts(char *p1, char *p2, char *p3);
+
+//matriz_builtins
+int check_builtins(t_token *token_lst, t_env *env_lst);
 
 //env
 int	print_env(t_env *env_list);

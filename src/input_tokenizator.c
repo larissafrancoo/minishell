@@ -97,7 +97,7 @@ t_token	*token_lstnew(char *first_str)
 	return (list);
 }
 
-t_token *tokenizator(char *rd_input, t_token *token_list)
+t_token *tokenizator(char *rd_input, t_token *token_list, t_env *env_lst)
 {
     int     i;
     char    **splited_input;
@@ -110,6 +110,7 @@ t_token *tokenizator(char *rd_input, t_token *token_list)
         return (NULL);
     while (splited_input[++i])
     {
+        splited_input[i] = expander_the_input(splited_input[i], env_lst);
         token = token_lstnew(ft_strdup(splited_input[i]));
         if (!token)
         {
@@ -123,17 +124,15 @@ t_token *tokenizator(char *rd_input, t_token *token_list)
     return (token_list);
 }
 
-int do_tokens(char *rd_input)
+int do_tokens(char *input, t_token *tokens, t_env *env_lst)
 {
     int     i;
     t_token *tmp;
-    t_token *tokens;
 
     i = -1;
-    tokens = NULL;
-    if (input_check(rd_input) != 0)
-        return (input_check(rd_input));
-    tokens = tokenizator(rd_input, tokens);
+    if (input_check(input) != 0)
+        return (input_check(input));
+    tokens = tokenizator(input, tokens, env_lst);
     if (!tokens)
         return (ERROR_WORD);
     printf("Sucesso!\n");

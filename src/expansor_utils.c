@@ -1,116 +1,143 @@
 #include "../include/minishell.h"
-int find_next_char_for_expand(char *str, int idx)
-{
-    int flag;
 
-    flag = 0;
-    if (!str)
-        return (-1);
-    while (str[idx])
+char *replace_the_part(char *str, t_env *env_lst)
+{
+    t_env *aux;
+
+    aux = env_lst;
+    while (aux->next)
     {
-        if (ft_isalpha(str[idx]) || str[idx] == '_')
-        {
-            if (!str[idx + 1])
-                return (idx);
-            else
-                idx++;
-        }
-        else
-            break ;
+        if (strcmp(aux->key, str) == 0)
+            return (ft_strdup(aux->str));
+        aux = aux->next;
     }
-    if (idx == 0)
-        return (idx);
-    else
-        return (idx - 1);
+    return (NULL);
 }
 
-char	*get_word_for_expand(char *str, int idx)
-{
-    int     wlen;
-    int     end_word;
-    int     iret;
-    char    *ret;
-
-    iret = -1;
-    end_word = find_next_char_for_expand(str, idx);
-    if (end_word == -1)
-        return (NULL);
-    wlen = (end_word - idx) + 1;
-    ret = (char *) malloc((wlen + 1) * sizeof(char));
-    if (!ret)
-        return (NULL);
-    while (++iret < wlen)
-        ret[iret] = str[idx++];
-    printf("idx iret: %d - idx str: %d\n", iret, idx);
-    ret[iret] = '\0';
-    printf("achei uma palavra: %s\n", ret);
-    return (ret);
-}
-/*
-char *expand_strjoin(char *s1, char *s2)
+char *get_first_part(char *str, int idx)
 {
     int i;
-    int x;
     char *ret;
 
-    i = -1;
-    x = 0;
-    if (!s1 || !s2)
-        return (NULL);
-    ret = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+    printf("Index passado para a função 'get_first_part': %d - char %c|\n", idx, str[idx]);
+    i = 0;
+    ret = (char *) malloc((idx + 1) * sizeof(char));
     if (!ret)
-        return(NULL);
-    while (s1[i++])
-        ret[i] = s1[i];
-    if (s1[0])
-        free(s1);
-    while (s2[++x])
-        ret[i++] = s2[x];
+    {
+        printf("ERRO NO GET_FIRST_PART");
+        return (NULL);
+    }
+    while (i < idx)
+    {
+        ret[i] = str[i];
+        i++;
+    }
     ret[i] = '\0';
     return (ret);
 }
 
-char *find_the_key(char *str, t_env *env_lst)
+char *get_the_key(char *str, int idx, t_env *env_lst)
 {
-    if (!env_lst)
-        return (0);
-    while (env_lst->next)
+    int i;
+    int len;
+    char *ret;
+    char *aux;
+
+    if (!str)
+        return (NULL);
+    if (str[idx] != '$')
     {
-        if (strcmp(env_lst->key, str) == 0)
-        {
-            free(str);
-            str = ft_strdup(env_lst->str);
-            return (str);
-        }
-        else
-            env_lst = env_lst->next;
+        printf("\nVocê não está me passando uma chave.\n");
+        return (NULL);
     }
-    free (str);
-    return (NULL);
+    idx++;
+    i = idx;
+    while (str[i] && (ft_isalpha(str[i]) || str[i] == '_'))
+        i++;
+    len = i - idx;
+    printf("Tamanho de len em 'get_the_key': %d\n", len);
+    aux = (char *) malloc((len + 1) * sizeof(char));
+    if (!aux)
+        return (NULL);
+    i = 0;
+    while (i < len)
+        aux[i++] = str[idx++];
+    aux[i] = '\0';
+    ret = replace_the_part(aux, env_lst);
+    free(aux);
+    return (ret);
 }
 
-char	*substr_for_expand(char const *s, unsigned int start, size_t len)
+char *get_final_part(char *str, int idx)
 {
-	unsigned int	i;
-	unsigned int	o;
-	char			*ret;
+    int i;
+    int len;
+    char *ret;
 
-	i = start;
-	o = 0;
-	if (!s || len == 0)
-		return (NULL);
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	ret = (char *) malloc((len + 1) * sizeof(char));
-	if (!ret)
-		return (NULL);
-	while (o < len)
-	{
-		ret[o] = s[i];
-		i++;
-		o++;
-	}
-	ret[o] = '\0';
-	return (ret);
+    if (!str[idx])
+        return (NULL);
+    i = idx;
+    while (str[i])
+        i++;
+    len = i - idx;
+    printf("Tamanho de len em 'get_final_part': %d\n", len);
+    ret = (char *) malloc((len + 1) * sizeof(char));
+    if (!ret)
+        return (NULL);
+    i = 0;
+    while (i < len)
+        ret[i++] = str[idx++];
+    ret[i] = '\0';
+    return (ret);
 }
-*/
+
+char *join_the_parts(char *p1, char *p2, char *p3)
+{
+    char *aux;
+
+    if (!p1 && !p2 && !p3)
+        return (NULL);
+    else if (p1 && p2 && p3)
+    {
+        aux = ft_strjoin(p1, p2);
+        free(p1);
+        free(p2);
+        p1 = ft_strjoin(aux, p3);
+        free(aux);
+        free(p3);
+        return (p1);
+    }
+    else if (p1)
+    {
+        if (!p2 && !p3)
+            return (p1);
+        else if (!p2)
+        {
+            aux = ft_strjoin(p1, p3);
+            free(p1);
+            free(p3);
+            return (aux);
+        }
+        else if (!p3)
+        {
+            aux = ft_strjoin(p1, p2);
+            free(p1);
+            free(p2);
+            return (aux);
+        }
+    }
+    else if (p2)
+    {
+        if (!p3)
+            return (p2);
+        else
+        {
+            aux = ft_strjoin(p2, p3);
+            free(p2);
+            free(p3);
+            return (aux);
+        }
+    }
+    else
+        return (p3);
+}

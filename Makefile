@@ -10,7 +10,7 @@ LIBRARY	=	./libft/
 
 SRCS	=	./src/input_checker_functions.c\
 			./src/input_tokenizator.c\
-			./src/input_start_function.c\
+			./src/readline_function.c\
 			./src/env_function.c\
 			./src/env_utils.c\
 			./src/split_function.c\
@@ -20,6 +20,8 @@ SRCS	=	./src/input_checker_functions.c\
 			./src/doing_builtins/pwd.c\
 			./src/expansor.c\
 			./src/expansor_utils.c\
+			./src/parser_p1.c\
+			./src/doing_builtins/matriz_builtins.c\
 
 all: $(NAME)
 
