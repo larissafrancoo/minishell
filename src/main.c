@@ -2,12 +2,28 @@
 
 int main(int ac, char **av, char **ev)
 {
-    t_env *env;
-    t_token *tokens;
-    env = NULL;
-    tokens = NULL;
-    env = my_env_lst(ev, env);
-    readline_function(env, tokens);
-    free_env(env);
-    return (0);
+    t_intro shell;
+
+    (void)ac;
+    (void)av;
+
+    start_function(&shell, ev);
+    while (1)
+    {
+        shell.input = readline("nickname@123:~/um/caminho/qualquer$ ");
+        if (shell.input == NULL)
+            break ;
+        if (!str_space(shell.input))
+            add_history(shell.input);
+        if (check_input(shell.input))
+        {
+            free(shell.input);
+            continue ;
+        }
+        go_minibash(&shell);
+    }
+    rl_clear_history();
+    //cleanup_resourses(NULL, NULL, shell.fd, &shell);
+    return (42);
 }
+
