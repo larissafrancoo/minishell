@@ -7,6 +7,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <stddef.h>
+# include <sys/wait.h>
 # include <linux/limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -65,5 +66,30 @@ typedef struct s_token
 	t_token_type type;
 	struct s_token *next;
 } t_token;
+
+void start_function(t_intro *shell, char **ev);
+int str_space(char *str);
+int char_space(int c);
+int check_input(char *input);
+int error_input(char *input);
+int check_quotes(char *str);
+int check_pipes(char *str);
+int print_error(t_token_type type);
+void change_flag(int c, int *single_flag, int *double_flag);
+int handle_quotes(char *str, int *i, int *flag);
+int has_a_pair(const char *str);
+int check_operators(char *str);
+int isop(const char *str);
+int char_redirect(char c);
+void get_env(t_env *list, char ** ev);
+int vetor_size(char **ev);
+char *get_env_content(char *ev, int sig);
+t_env_node *new_env_node(char *key, char *value);
+void env_addback(t_env *list, t_env_node *new);
+void free_env_error(t_env **list, char **key, char **value);
+void free_env(t_env *list);
+void	free_all_cmds(t_cmd ***cmds);
+void    free_tokens(t_token *token_list);
+void	go_minibash(t_intro *shell);
 
 #endif

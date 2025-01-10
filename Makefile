@@ -8,20 +8,9 @@ RM		=	rm -f
 
 LIBRARY	=	./libft/
 
-SRCS	=	./src/input_checker_functions.c\
-			./src/input_tokenizator.c\
-			./src/readline_function.c\
-			./src/env_function.c\
-			./src/env_utils.c\
-			./src/split_function.c\
-			./src/split_utils.c\
-			./src/main.c\
-			./src/doing_builtins/env.c\
-			./src/doing_builtins/pwd.c\
-			./src/expansor.c\
-			./src/expansor_utils.c\
-			./src/parser_p1.c\
-			./src/doing_builtins/matriz_builtins.c\
+SRCS	=	./src/1_start_function.c\
+			./src/2_env.c\
+			./main.c\
 
 all: $(NAME)
 

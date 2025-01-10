@@ -27,3 +27,10 @@ int main(int ac, char **av, char **ev)
     return (42);
 }
 
+void	go_minibash(t_intro *shell)
+{
+	parse_input(shell);
+	if (shell->cmds)
+		free_all_cmds(&shell->cmds);
+    free(shell->input);
+}
