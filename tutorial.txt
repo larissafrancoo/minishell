@@ -29,7 +29,11 @@ Como usar a sua branch:
 	> git merge main
 
 	e. Após o merge, faça o push novamente para a sua branch:
+<<<<<<< HEAD
 	> git push origin emorshhe
+=======
+	> git push origin SUABRANCH
+>>>>>>> main
 
 - PARA DE FATO ATUALIZAR A BRANCH PRINCIPAL(MAIN):
 	a. Faça o checkout da `main`:
