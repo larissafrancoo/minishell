@@ -1,30 +1,40 @@
 #include "../include/minishell.h"
 
-t_shel ft_begin_shell(char **argv, char **env)
-{
-    t_shell init_shell;
-
-    ft_memset(&init_shell, 0, sizeof(t_shell));
-    init_shell.argv = argv;
-    init_env(&init_shell.env, env);
-    init_shell.fd[IN] = dup(STDIN_FILENO);
-    init_shell.fd[OUT] = dup(STDOUT_FILENO);
-    return (init_shell);
-}
-
 int main(int ac, char **av, char **ev)
 {
-    t_shel  shell;
-    
-    
-    /*start_function(ev);*/
-    
-    shell = ft_begin_shell(av, ev)
+    t_intro shell;
+
+    (void)ac;
+    (void)av;
+
+    start_function(&shell, ev);
     while (1)
     {
-        ft_prompt
-        ft_executer(&shell);
-        ft_cdm_clean
+        shell.input = readline("nickname@123:~/um/caminho/qualquer$ ");
+        if (shell.input == NULL)
+            break ;
+        if (!str_space(shell.input))
+            add_history(shell.input);
+        if (check_input(shell.input))
+        {
+            free(shell.input);
+            continue ;
+        }
+        go_minibash(&shell);
     }
-    return (0);
+    rl_clear_history();
+    //cleanup_resourses(NULL, NULL, shell.fd, &shell);
+    return (42);
 }
+
+void	go_minibash(t_intro *shell)
+{
+	parse_input(shell);
+	if (shell->cmds)
+    {
+        ft_executer(shell);
+    	free_all_cmds(&shell->cmds);
+    }
+    free(shell->input);
+}
+
