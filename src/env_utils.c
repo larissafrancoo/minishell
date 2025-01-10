@@ -48,8 +48,19 @@ t_env	*my_lstnew(char *first_str, char *second_str)
 	list = (t_env *) malloc(sizeof(t_env));
 	if (!list)
 		return (NULL);
-	list->key = first_str;
-	list->str = second_str;
+	list->key = ft_strdup(first_str);
+	if(!list->key)
+	{
+		free(list->key);
+		return (NULL);
+	}
+	list->value = ft_strdup(second_str);
+	if(!list->value)
+	{
+		free(list->key);
+		free(list);
+		return(NULL);
+	}
 	list->next = NULL;
 	return (list);
 }
@@ -63,7 +74,7 @@ void	free_env(t_env *list)
 		temp = list;
 		list = list->next;
 		free(temp->key);
-		free(temp->str);
+		free(temp->value);
 		free(temp);
 	}
 }

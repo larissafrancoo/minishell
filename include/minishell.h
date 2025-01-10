@@ -1,6 +1,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define MAX_SIZE 1024
+# define EXIT_SUCCESS 0
+# define EXIT_FAILURE 1
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -10,12 +12,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+# include <stdbool.h>
 
 typedef struct s_env
 {
 	char	*key;
-	char	*str;
+	char	*value;
 	struct s_env	*next;
+	struct s_env	*prev;
 }			t_env;
 
 typedef struct s_token
@@ -27,12 +31,40 @@ typedef struct s_token
 	struct s_token	*next;
 }			t_token;
 
+typedef struct  s_pid
+{
+	pid_t	pid;
+	struct s_pid	*next;
+}	t_pid;
+
+typedef struct s_shell
+{
+	char	**argv;			
+	t_env	*env;
+	t_pid	*pid;		
+	t_cmd	**cmd;
+	int		fd[2];			
+}	t_shell;
+
+
+{
+	/* data */
+};
+
+
+
 enum
 {
 	ERROR = 0,
 	NOTERROR = 1,
 	ERROR_QUOTE = 2,
 	ERROR_WORD = 3,
+}
+
+enum e_fd
+{
+	IN = 0,
+	OUT = 1
 };
 
 //split_function
