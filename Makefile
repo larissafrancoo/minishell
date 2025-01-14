@@ -10,7 +10,15 @@ LIBRARY	=	./libft/
 
 SRCS	=	./src/1_start_function.c\
 			./src/2_env.c\
-			./main.c\
+			./src/3_utils_1.c\
+			./src/4_check_functions.c\
+			./src/4_check_functions2.c\
+			./src/5_split_pipe_process.c\
+			./src/5_split_pipe_process2.c\
+			./src/6_tokenizator_process1.c\
+			./src/6_tokenizator_process2.c\
+			./src/7_free_function.c\
+			main.c\
 
 all: $(NAME)
 
