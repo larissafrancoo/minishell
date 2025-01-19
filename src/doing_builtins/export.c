@@ -34,8 +34,12 @@ static int ft_check_arg(const char *arg)
 // Lista todas as variáveis de ambiente
 static void ft_list_env(t_env_node *env_list)
 {
-    for (t_env_node *current = env_list; current; current = current->next)
+    t_env_node *current = env_list;
+    while (current)
+    {
         printf("declare -x %s=\"%s\"\n", current->key, current->value);
+        current = current->next;
+    }
 }
 
 // Atualiza variável de ambiente, se já existir
@@ -63,6 +67,7 @@ static int update_or_add_var(t_env_node **env_list, char *arg)
 {
     char **split = ft_split(arg, '=');
     t_env_node *current;
+    t_env_node *new_node;
 
     if (!split || !split[0] || !split[1])
     {
@@ -71,7 +76,7 @@ static int update_or_add_var(t_env_node **env_list, char *arg)
     }
     if (update_env_var(env_list, split) == EXIT_SUCCESS)
         return EXIT_SUCCESS;
-    t_env_node *new_node = malloc(sizeof(t_env_node));
+    new_node = malloc(sizeof(t_env_node));
     if (!new_node)
     {
         free_split(split);

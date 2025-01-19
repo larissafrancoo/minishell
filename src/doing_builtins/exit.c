@@ -76,7 +76,7 @@ void	ft_exit(char **args, t_env *env, t_shell *shell)
 
 	status_g = 0;
 	ft_printf("exit\n");
-	if (ft_arr_size(args) == 2)
+	if (ft_size(args) == 2)
 	{
 		// Verifica se o argumento não é numérico ou se há overflow
 		if (ft_is_all_digit(args[1]) || ft_is_overflow(args[1]))
@@ -90,7 +90,7 @@ void	ft_exit(char **args, t_env *env, t_shell *shell)
 			status_g = ret;
 		}
 	}
-	else if (ft_arr_size(args) > 2)
+	else if (ft_size(args) > 2)
 	{
 		ft_printf("exit: too many arguments\n");
 		return ;

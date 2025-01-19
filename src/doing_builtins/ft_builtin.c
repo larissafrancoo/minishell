@@ -20,7 +20,7 @@ void	ft_exec_builtins(char **args, t_env *env, t_shell *shell)
 
 void	ft_builtin_exec(t_shell *shell, t_cmd *cmd)
 {
-	if (!msh_confirmio(cmd))
+	if (!confirm(cmd))
 		return ;
 	ft_setfd(STDIN_FILENO, &cmd->fdin, STDIN_FILENO);
 	ft_setfd(STDOUT_FILENO, &cmd->fdout, STDOUT_FILENO);

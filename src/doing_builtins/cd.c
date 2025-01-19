@@ -59,7 +59,7 @@ void	ft_cd(char **args, t_env *env)
 	char	*path;
 
 	status_g = 0;
-	if (ft_arr_size(args) > 2)
+	if (ft_size(args) > 2)
 	{
 		ft_printf("cd: too many arguments\n");
 		status_g = 1;
