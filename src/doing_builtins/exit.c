@@ -8,22 +8,40 @@ static void	ft_end(t_env *env, t_shell *sh)
 	free(env);
 }
 
-static int ft_is_overflow(char *arg)
+static int ft_compare_with_limit(char *arg, int i, int len, int sign)
 {
-    long long num;
-    int sign;
-    int i;
-    int len;
     char *limit;
     int j;
 
-    i = -1;
+    if (sign == 1) {
+        limit = "9223372036854775807";  // Limite para números positivos
+    } else {
+        limit = "9223372036854775808";  // Limite para números negativos
+    }
+    j = -1;
+    while (++j < len)
+    {
+        if (arg[i + j] > limit[j])
+            return 1;
+        if (arg[i + j] < limit[j])
+            return 0;
+    }
+    return 0;  // Se for igual, não há overflow
+}
+
+static int ft_is_overflow(char *arg)
+{
+    int sign;
+    int i;
+    int len;
+
+    i = 0;
     sign = 1;
-    limit = "9223372036854775807";
-    if (arg[++i] == '-' || arg[i] == '+')
+    if (arg[i] == '-' || arg[i] == '+')
     {
         if (arg[i] == '-')
             sign = -1;
+        i++;
     }
     while (arg[i] == '0')
         i++;
@@ -32,17 +50,7 @@ static int ft_is_overflow(char *arg)
     len = ft_strlen(arg + i);
     if (len > 19)
         return 1;
-    if (sign == 1)
-        limit = "9223372036854775808";
-    j = -1;
-    while(++j < len)
-    {
-        if (arg[i + j] > limit[j])
-            return 1;
-        if (arg[i + j] < limit[j])
-            return 0;
-    }
-    return 0;
+    return (ft_compare_with_limit(arg, i, len, sign));
 }
 
 static int	ft_is_all_digit(char *str)
@@ -58,7 +66,7 @@ static int	ft_is_all_digit(char *str)
 			i++;
 		else
 			return (1);
-	}
+    }
 	return (0);
 }
 
@@ -70,6 +78,7 @@ void	ft_exit(char **args, t_env *env, t_shell *shell)
 	ft_printf("exit\n");
 	if (ft_arr_size(args) == 2)
 	{
+		// Verifica se o argumento não é numérico ou se há overflow
 		if (ft_is_all_digit(args[1]) || ft_is_overflow(args[1]))
 		{
 			ft_printf("exit: %s: numeric argument required\n", args[1]);
