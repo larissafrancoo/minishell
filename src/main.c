@@ -3,7 +3,7 @@
 int main(int ac, char **av, char **ev)
 {
     t_intro shell;
-
+    ft_bzero()
     (void)ac;
     (void)av;
 
